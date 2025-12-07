@@ -22,11 +22,11 @@ function formatDate(date, fromFormat, toFormat) {
   }
 
   const resultParts = toFormat.slice(0, -1).map((token) => {
-    if (dateObj[token]) {
+    if (token in dateObj) {
       return dateObj[token];
     }
 
-    if (token === 'YYYY' && dateObj.YY) {
+    if (token === 'YYYY' && 'YY' in dateObj) {
       const yy = String(dateObj.YY).padStart(2, '0');
       const n = Number(yy);
       const prefix = n < 30 ? '20' : '19';
@@ -34,7 +34,7 @@ function formatDate(date, fromFormat, toFormat) {
       return prefix + yy;
     }
 
-    if (token === 'YY' && dateObj.YYYY) {
+    if (token === 'YY' && 'YYYY' in dateObj) {
       return dateObj.YYYY.slice(-2);
     }
 
